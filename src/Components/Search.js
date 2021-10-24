@@ -9,10 +9,15 @@ class Search extends Component {
   }
   handleSearch = e => {
     this.setState({ type : e });
+    if(!e.length) {
+      this.setState({ searchBooks: [] })
+    } else {
       BooksAPI.search(e)
       .then(books => {
         books.error ? this.setState({ searchBooks: [] }) :this.setState({ searchBooks: books })
       }).catch(this.setState({ searchBooks: [] }));
+    }
+    
   };
     render() {
       const {searchBooks,type} = this.state;
